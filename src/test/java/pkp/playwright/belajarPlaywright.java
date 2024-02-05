@@ -4,9 +4,13 @@ import com.microsoft.playwright.*;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
+import io.qameta.allure.junit5.AllureJunit5;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@ExtendWith(AllureJunit5.class)
 public class belajarPlaywright {
     @Test
     @DisplayName("Verify Url in Playwright Java")
