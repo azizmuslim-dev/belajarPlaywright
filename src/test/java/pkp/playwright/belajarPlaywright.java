@@ -40,13 +40,15 @@ public class belajarPlaywright {
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
         Page page = browser.newPage();
         page.navigate("https://www.programsbuzz.com/user/login");
-        Locator searchBar = page.locator("#edit-keys");
-        String placeText = searchBar.getAttribute("placeholder");
+        Locator searchBar = page.locator("#edit-keys--2");
+        String placeText = searchBar.getAttribute("keys");
 
-        if (placeText.contains("Enter the terms you wish to search for")){
+        if (placeText != null && placeText.contains("Enter the terms you wish to search for.")) {
             System.out.println("PASS");
-        } else {
+        } else if (placeText == null || placeText.isEmpty()) {
             System.out.println("FAIL! no such texts");
+        } else {
+            System.out.println("FAIL! Unexpected content");
         }
     }
 
