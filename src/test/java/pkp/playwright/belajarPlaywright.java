@@ -4,13 +4,13 @@ import com.microsoft.playwright.*;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
-import io.qameta.allure.junit5.AllureJunit5;
-import org.junit.jupiter.api.extension.ExtendWith;
+//import io.qameta.allure.junit5.AllureJunit5;
+//import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@ExtendWith(AllureJunit5.class)
+//@ExtendWith(AllureJunit5.class)
 public class belajarPlaywright {
     @Test
     @DisplayName("Verify Url in Playwright Java")
@@ -31,6 +31,23 @@ public class belajarPlaywright {
 //                System.out.println(currentUrl);
         browser.close();
         playwright.close();
+    }
+
+    @Test
+    @DisplayName("Verify Placeholder Text in Playwright Java")
+    public void verifyPlaceholder(){
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+        page.navigate("https://www.programsbuzz.com/user/login");
+        Locator searchBar = page.locator("#edit-keys");
+        String placeText = searchBar.getAttribute("placeholder");
+
+        if (placeText.contains("Enter the terms you wish to search for")){
+            System.out.println("PASS");
+        } else {
+            System.out.println("FAIL! no such texts");
+        }
     }
 
     @Test
