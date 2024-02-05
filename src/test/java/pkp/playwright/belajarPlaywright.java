@@ -16,7 +16,7 @@ public class belajarPlaywright {
         Page page = browser.newPage();
         page.navigate("http://demo.automationtesting.in/FileDownload.html");
         Download waitForDownload = page.waitForDownload(page.locator("a.btn.btn-primary")::click);
-//        menentukan lokasi penyimpanan/path hasil download
+//        menentukan lokasi penyimpanan hasil download
         waitForDownload.saveAs(Paths.get("Downloads/", waitForDownload.suggestedFilename()));
 
         System.out.println(waitForDownload.url());
@@ -35,6 +35,7 @@ public class belajarPlaywright {
         Page page = browser.newPage();
         page.navigate("http://autopract.com/selenium/upload1/");
         page.setInputFiles("//input[@type='file']",
+//            menentukan lokasi file yang ingin di upload
             Paths.get("/users/pkpho/Downloads/Aziz.jpeg"));
         page.close();
         browser.close();
