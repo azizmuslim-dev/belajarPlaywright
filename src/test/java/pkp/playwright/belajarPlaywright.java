@@ -9,6 +9,27 @@ import java.nio.file.Paths;
 
 public class belajarPlaywright {
     @Test
+    @DisplayName("Verify Url in Playwright Java")
+    public void verifyUrl(){
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+                page.navigate("http://www.programsbuzz.com/user/login");
+                page.locator("#edit-name").type("Naruto");
+                page.locator("#edit-pass").type("Uzumaki");
+                String currentUrl = page.url();
+                String expectedUrl = "https://www.programsbuzzz.com/user/login";
+                if (currentUrl.equals(expectedUrl)){
+                    System.out.println("URL is correct " + currentUrl);
+                } else {
+                    System.out.println("URL is incorrect. Expected: " + expectedUrl + " , but got: "+ currentUrl);
+                }
+//                System.out.println(currentUrl);
+        browser.close();
+        playwright.close();
+    }
+
+    @Test
     @DisplayName("Download File in Playwright Java")
     public void downloadFileTest() {
         Playwright playwright = Playwright.create();
