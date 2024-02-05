@@ -51,6 +51,7 @@ public class belajarPlaywright {
         Page page = browser.newPage();
         page.navigate("https://the-internet.herokuapp.com/upload");
         FileChooser fileChooser = page.waitForFileChooser(() -> page.click("#file-upload"));
+//        menentukan lokasi file untuk upload
         fileChooser.setFiles(Paths.get("/users/pkpho/Downloads/Aziz.jpeg"));
         page.click("input:has-text(\"upload\")");
         page.waitForLoadState();
