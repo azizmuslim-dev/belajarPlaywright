@@ -16,7 +16,7 @@ public class belajarPlaywright {
         Page page = browser.newPage();
         page.navigate("http://demo.automationtesting.in/FileDownload.html");
         Download waitForDownload = page.waitForDownload(page.locator("a.btn.btn-primary")::click);
-//        menentukan lokasi penyimpanan hasil download
+//        menentukan lokasi penyimpanan/path hasil download
         waitForDownload.saveAs(Paths.get("Downloads/", waitForDownload.suggestedFilename()));
 
         System.out.println(waitForDownload.url());
