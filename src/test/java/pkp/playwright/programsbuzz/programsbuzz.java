@@ -44,4 +44,21 @@ public class programsbuzz {
             System.out.println("FAIL! Unexpected content");
         }
     }
+
+    @Test
+    @DisplayName("Assert Attribute Value in Playwright Java")
+    public void assertAttributeValue(){
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+        page.navigate("http://autopract.com/selenium/dropdown1/");
+        Locator locator = page.locator("select.custom-select option >> nth=-2");
+        String attributeV = locator.getAttribute("value");
+
+        if (attributeV.equals("item3")){
+            System.out.println("Attribute value is correct!");
+        } else {
+            System.out.println("Attribute value is incorrect.");
+        }
+    }
 }
