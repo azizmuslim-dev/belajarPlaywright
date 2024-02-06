@@ -104,4 +104,35 @@ public class belajarPlaywright {
         browser.close();
         playwright.close();
     }
+
+    @Test
+    @DisplayName("GET API")
+    public void getAPI(){
+        int numberOfUsers = 10;
+        Thread[] threads = new Thread[numberOfUsers];
+
+        for (int i = 0; i < numberOfUsers; i++){
+            threads[i] = new Thread(() -> {
+                Playwright playwright = Playwright.create();
+                Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                Page page = browser.newPage();
+                Response response = page.navigate("https://devklinik.pkp.my.id/login");
+                int status = response.status();
+                System.out.println("Status code for user "+ Thread.currentThread().getId() + ": " + status);
+                page.close();
+                browser.close();
+                playwright.close();
+            });
+            threads[i].start();
+        }
+//         wait for all threads to complete
+        for (int i = 0; i < numberOfUsers; i++){
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
+
