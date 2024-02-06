@@ -164,5 +164,37 @@ public class belajarPlaywright {
         browser.close();
         playwright.close();
     }
+
+    @Test
+    @DisplayName("Post Multiple Data API")
+    public void postMultipleDataAPI(){
+        Playwright playwright = Playwright.create();
+        APIRequestContext request = playwright.request().newContext();
+
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+//        membuat data pertama
+        HashMap<String, String> data1 = new HashMap<String, String>();
+        data1.put("name", "Naruto");
+        data1.put("job", "Ninja");
+
+//        membuat data kedua
+        HashMap<String, String> data2 = new HashMap<String, String>();
+        data2.put("name", "Sasuke");
+        data2.put("job", "Rogue Ninja");
+
+//        mengirimkan permintaan POST untuk data pertama
+        String response1 = request.post("https://reqres.in/api/users", RequestOptions.create().setData(data1)).text();
+        System.out.println("Response 1: " + response1);
+
+//        mengirimkan permintaan POST untuk data kedua
+        String response2 = request.post("https://reqres.in/api/users", RequestOptions.create().setData(data2)).text();
+        System.out.println("Response 2: " + response2);
+
+        page.close();
+        browser.close();
+        playwright.close();
+    }
 }
 
