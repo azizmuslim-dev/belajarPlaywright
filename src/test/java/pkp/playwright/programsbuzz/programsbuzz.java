@@ -3,6 +3,7 @@ package pkp.playwright.programsbuzz;
 import com.microsoft.playwright.*;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.testng.asserts.SoftAssert;
 
 public class programsbuzz {
     @Test
@@ -60,5 +61,43 @@ public class programsbuzz {
         } else {
             System.out.println("Attribute value is incorrect.");
         }
+    }
+
+    @Test
+    @DisplayName("Verify Tooltip using Playwright Java")
+    public void verifyTooltip(){
+        Playwright playwright = Playwright.create();
+        BrowserContext browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false))
+                .newContext();
+
+        Page page = browser.newPage();
+        page.navigate("https://jqueryui.com/tooltip/");
+        FrameLocator frameOne = page.frameLocator(".demo-frame");
+        Locator ageBox = frameOne.locator("#age");
+        Locator toolTipText = frameOne.locator(".ui-tooltip-content");
+        ageBox.hover();
+        String textContent = toolTipText.textContent();
+        System.out.println(textContent);
+    }
+
+    @Test
+    @DisplayName("Soft Assertion in Playwright Java")
+    public void softAssertion(){
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+
+        Page page = browser.newPage();
+        page.navigate("https://www.programsbuzz.com/user/login");
+        page.locator("#edit-name").type("nana");
+        page.locator("#edit-pass").type("nnv");
+        page.locator("(//input[@type='submit'])[2]").click();
+        String actualText = page.locator("//a[normalize-space()='Forgot your password?']").textContent();
+        System.out.println(actualText);
+        String expectedText = "Forgot your password";
+        SoftAssert soft = new SoftAssert();
+        soft.assertEquals(actualText, expectedText, "Matched");
+
+        System.out.println("This part is executed");
+        soft.assertAll();
     }
 }
