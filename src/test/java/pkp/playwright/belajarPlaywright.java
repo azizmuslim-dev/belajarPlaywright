@@ -1,6 +1,9 @@
 package pkp.playwright;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.RequestOptions;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -9,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 //@ExtendWith(AllureJunit5.class)
 public class belajarPlaywright {
@@ -133,6 +137,32 @@ public class belajarPlaywright {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Test
+    @DisplayName("POST API")
+    public void postAPI(){
+        Playwright playwright = Playwright.create();
+        APIRequestContext request = playwright.request().newContext();
+
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+
+        HashMap<String, String> data = new HashMap<String, String>();
+
+        data.put("name", "Naruto");
+        data.put("job", "Ninja");
+
+        String response = request.post("https://reqres.in/api/users", RequestOptions.create().setData(data)).text();
+
+        System.out.println(response);
+
+        JsonObject j = new Gson().fromJson(response, JsonObject.class);
+        System.out.println(j.get("name"));
+
+        page.close();
+        browser.close();
+        playwright.close();
     }
 }
 
