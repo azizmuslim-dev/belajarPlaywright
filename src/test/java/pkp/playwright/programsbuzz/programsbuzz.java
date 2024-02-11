@@ -117,16 +117,16 @@ public class programsbuzz {
         }
     }
 
-//    @Test
-//    @DisplayName("Verify Text is not Present in Playwright Java")
-//    public void verifyTextIsNotPresent() {
-//        try (Playwright playwright = Playwright.create()) {
-//            Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-//            Page page = browser.newPage();
-//            page.navigate("http://www.programsbuzz.com");
-//            Locator body = page.locator("body");
-//            String bodyText = body.textContent();
-//            Assert.assertFalse(bodyText.contains("Spam Message"));
-//        }
-//    }
+    @Test
+    @DisplayName("Verify Text is not Present in Playwright Java")
+    public void verifyTextIsNotPresent() {
+        try (Playwright playwright = Playwright.create()) {
+            Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+            Page page = browser.newPage();
+            page.navigate("http://www.programsbuzz.com");
+            Locator body = page.locator("body");
+            String bodyText = body.textContent();
+            Assert.assertFalse(bodyText.contains("Spam Message"));
+        }
+    }
 }
