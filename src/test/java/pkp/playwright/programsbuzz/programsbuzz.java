@@ -148,19 +148,21 @@ public class programsbuzz {
         }
     }
 
-//    @Test
-//    @DisplayName("Click Browser Back and Forward Button in Playwright Java")
-//    public void clickBrowserBackAndForwardButton(){
-//        Playwright playwright = Playwright.create();
-//        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-//        Page page = browser.newPage();
-//        page.navigate("https://www.programsbuzz.com");
-//        page.locator("//input[@name='keys']").click();
-//        page.locator("//input[@id='edit-keys']").type("Playwright");
-//        page.locator("//input[@id='edit-submit']").click();
-//        page.goBack();
-//        page.goForward();
-//        browser.close();
-//        playwright.close();
-//    }
+    @Test
+    @DisplayName("Click Browser Back and Forward Button in Playwright Java")
+    public void clickBrowserBackAndForwardButton(){
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+        page.navigate("http://www.programsbuzz.com");
+        page.locator("//input[@name='keys']").click();
+        page.locator("//input[@id='edit-keys']").type("Playwright");
+        page.locator("//input[@id='edit-submit']").click();
+        page.goBack();
+        page.goForward();
+        browser.close();
+        playwright.close();
+    }
+
+
 }
