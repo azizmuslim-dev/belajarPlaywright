@@ -1,6 +1,7 @@
 package pkp.playwright.programsbuzz;
 
 import com.microsoft.playwright.*;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.testng.asserts.SoftAssert;
@@ -85,7 +86,6 @@ public class programsbuzz {
     public void softAssertion(){
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-
         Page page = browser.newPage();
         page.navigate("https://www.programsbuzz.com/user/login");
         page.locator("#edit-name").type("nana");
@@ -93,11 +93,40 @@ public class programsbuzz {
         page.locator("(//input[@type='submit'])[2]").click();
         String actualText = page.locator("//a[normalize-space()='Forgot your password?']").textContent();
         System.out.println(actualText);
-        String expectedText = "Forgot your password";
+        String expectedText = "Forgot your password?";
         SoftAssert soft = new SoftAssert();
         soft.assertEquals(actualText, expectedText, "Matched");
 
         System.out.println("This part is executed");
         soft.assertAll();
     }
+
+    @Test
+    @DisplayName("Assert Page Title in Playwright Java")
+    public void assertPageTitle(){
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page page = browser.newPage();
+        page.navigate("http://www.programsbuzz.com");
+        String title = page.title();
+        String expectedTitle = "ProgramsBuzz - Online Technical Courses";
+        if (title.equalsIgnoreCase(expectedTitle)){
+            System.out.println("Title Match Verified");
+        } else {
+            System.out.println("Not a Match!!");
+        }
+    }
+
+//    @Test
+//    @DisplayName("Verify Text is not Present in Playwright Java")
+//    public void verifyTextIsNotPresent() {
+//        try (Playwright playwright = Playwright.create()) {
+//            Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+//            Page page = browser.newPage();
+//            page.navigate("http://www.programsbuzz.com");
+//            Locator body = page.locator("body");
+//            String bodyText = body.textContent();
+//            Assert.assertFalse(bodyText.contains("Spam Message"));
+//        }
+//    }
 }
